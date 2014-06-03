@@ -1,16 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
 <tryton>
     <data>
+        <!-- sale.opportunity.campaign -->
         <record model="ir.ui.view" id="sale_opportunity_campaign_form_view">
             <field name="model">sale.opportunity.campaign</field>
             <field name="type">form</field>
             <field name="name">sale_opportunity_campaign_form</field>
         </record>
+
         <record model="ir.ui.view" id="sale_opportunity_campaign_tree_view">
             <field name="model">sale.opportunity.campaign</field>
             <field name="type">tree</field>
             <field name="name">sale_opportunity_campaign_tree</field>
         </record>
+
         <record model="ir.action.act_window" id="act_sale_opportunity_campaign">
             <field name="name">Sale Opportunity Campaign</field>
             <field name="res_model">sale.opportunity.campaign</field>
@@ -26,6 +31,7 @@
             <field name="view" ref="sale_opportunity_campaign_form_view"/>
             <field name="act_window" ref="act_sale_opportunity_campaign"/>
         </record>
+
         <record model="ir.model.access" id="access_sale_opportunity_campaign">
             <field name="model" search="[('model', '=', 'sale.opportunity.campaign')]"/>
             <field name="group" ref="sale_opportunity.group_opportunity"/>
@@ -35,6 +41,7 @@
             <field name="perm_delete" eval="True"/>
         </record>
 
+        <!-- sale.opportunity -->
         <record model="ir.ui.view" id="sale_opportunity_form_view">
             <field name="model">sale.opportunity</field>
             <field name="inherit" ref="sale_opportunity.opportunity_view_form"/>
@@ -45,6 +52,7 @@
             <field name="inherit" ref="sale_opportunity.opportunity_view_tree"/>
             <field name="name">sale_opportunity_tree</field>
         </record>
+
         <!-- Menus -->
         <menuitem action="act_sale_opportunity_campaign" 
                 id="menu_sale_opportunity_campaign" 
