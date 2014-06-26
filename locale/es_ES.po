@@ -12,11 +12,15 @@ msgstr "Fecha de creación"
 
 msgctxt "field:sale.opportunity.campaign,create_uid:"
 msgid "Create User"
-msgstr "Usuario creación"
+msgstr "Usuario de creación"
 
 msgctxt "field:sale.opportunity.campaign,description:"
 msgid "Description"
 msgstr "Descripción"
+
+msgctxt "field:sale.opportunity.campaign,end_date:"
+msgid "End Date"
+msgstr "Fecha final"
 
 msgctxt "field:sale.opportunity.campaign,id:"
 msgid "ID"
@@ -26,9 +30,17 @@ msgctxt "field:sale.opportunity.campaign,name:"
 msgid "Name"
 msgstr "Nombre"
 
+msgctxt "field:sale.opportunity.campaign,products:"
+msgid "Products"
+msgstr "Productos"
+
 msgctxt "field:sale.opportunity.campaign,rec_name:"
 msgid "Name"
 msgstr "Nombre"
+
+msgctxt "field:sale.opportunity.campaign,start_date:"
+msgid "Start Date"
+msgstr "Fecha inicial"
 
 msgctxt "field:sale.opportunity.campaign,write_date:"
 msgid "Write Date"
@@ -38,14 +50,90 @@ msgctxt "field:sale.opportunity.campaign,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
 
+msgctxt "field:sale.opportunity.campaign-product.product,campaing:"
+msgid "Campaign"
+msgstr "Campaña"
+
+msgctxt "field:sale.opportunity.campaign-product.product,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:sale.opportunity.campaign-product.product,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:sale.opportunity.campaign-product.product,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "field:sale.opportunity.campaign-product.product,product:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:sale.opportunity.campaign-product.product,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:sale.opportunity.campaign-product.product,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:sale.opportunity.campaign-product.product,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:sale.opportunity.create_campaign.start,campaign:"
+msgid "Campaign"
+msgstr "Campaña"
+
+msgctxt "field:sale.opportunity.create_campaign.start,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "model:ir.action,name:act_leads_form"
+msgid "Leads and Opportunities"
+msgstr "Iniciativas y oportunidades"
+
 msgctxt "model:ir.action,name:act_sale_opportunity_campaign"
 msgid "Sale Opportunity Campaign"
 msgstr "Campaña de oportunidades"
+
+msgctxt "model:ir.action,name:wizard_create_campaign"
+msgid "Create Campaign"
+msgstr "Crear campaña"
 
 msgctxt "model:ir.ui.menu,name:menu_sale_opportunity_campaign"
 msgid "Opportunity Campaign"
 msgstr "Campaña de oportunidades"
 
 msgctxt "model:sale.opportunity.campaign,name:"
-msgid "Sale Opportunity Campaign"
-msgstr "Campaña de oportunidades"
+msgid "Campaign"
+msgstr "Campaña"
+
+msgctxt "model:sale.opportunity.campaign-product.product,name:"
+msgid "Campaign - Product"
+msgstr "Campaña - Producto"
+
+msgctxt "model:sale.opportunity.create_campaign.start,name:"
+msgid "Create Campaing Start"
+msgstr "Inicio crear campaña"
+
+msgctxt "view:sale.opportunity.campaign:"
+msgid "Campaign"
+msgstr "Campaña"
+
+msgctxt "view:sale.opportunity.campaign:"
+msgid "Campaigns"
+msgstr "Campañas"
+
+msgctxt "view:sale.opportunity.create_campaign.start:"
+msgid "Create Campaign"
+msgstr "Crear campaña"
+
+msgctxt "wizard_button:sale.opportunity.create_campaign,start,end:"
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+msgctxt "wizard_button:sale.opportunity.create_campaign,start,leads:"
+msgid "Create"
+msgstr "Crear"

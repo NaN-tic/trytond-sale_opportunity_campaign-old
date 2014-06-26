@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <!--The COPYRIGHT file at the top level of this repository
 contains the full copyright notices and license terms. -->
-<tree string="Campaigns">
-	 <field name="name"/>
-	 <field name="start_date"/>
-	 <field name="end_date"/>
-</tree>
+<form string="Create Campaign">
+	<label name="campaign"/>
+	<field name="campaign" colspan="3"/>
+</form>

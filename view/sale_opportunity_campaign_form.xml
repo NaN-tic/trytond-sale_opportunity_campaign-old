@@ -1,9 +1,19 @@
 <?xml version="1.0"?>
-<!--The COPYRIGHT file at the top level of this repository             
+<!--The COPYRIGHT file at the top level of this repository
 contains the full copyright notices and license terms. -->
-<form string="Sale Opportunity Campaign">
+<form string="Campaign">
 	<label name="name"/>
-	<field name="name"/>
-	<separator name="description" colspan="4"/>
-	<field name="description" colspan="4"/>
+	<field name="name" colspan="3"/>
+	<label name="start_date"/>
+	<field name="start_date"/>
+	<label name="end_date"/>
+	<field name="end_date"/>
+    <notebook>
+        <page name="description">
+	        <field name="description" colspan="4"/>
+        </page>
+        <page name="products">
+	        <field name="products" colspan="4"/>
+        </page>
+    </notebook>
 </form>

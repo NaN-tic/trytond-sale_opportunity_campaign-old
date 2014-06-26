@@ -3,8 +3,14 @@
 from trytond.pool import Pool
 from .opportunity import *
 
+
 def register():
     Pool.register(
-        SaleOpportunityCampaign,
-        SaleOpportunity,
+        Campaign,
+        ProductCampaign,
+        Opportunity,
+        CreateCampaignStart,
         module='sale_opportunity_campaign', type_='model')
+    Pool.register(
+        CreateCampaign,
+        module='sale_opportunity_campaign', type_='wizard')
