@@ -65,6 +65,18 @@ class CreateCampaign(Wizard):
             ])
     leads = StateAction('sale_opportunity.act_opportunity_form')
 
+    def _get_opportunities(self, campaign, party):
+        '''
+        Returns a list with the values of the opportunities to create
+        related to the campaing and the party
+        '''
+        opportunity = campaign.create_lead()
+        opportunity.party = party
+        opportunity.description += ' - %s' % party.rec_name
+        opportunity._save_values
+        return [opportunity._save_values]
+
+
     def do_leads(self, action):
         pool = Pool()
         Party = pool.get('party.party')
@@ -73,10 +85,9 @@ class CreateCampaign(Wizard):
         campaign = self.start.campaign
         to_create = []
         for party in parties:
-            opportunity = campaign.create_lead()
-            opportunity.party = party
-            opportunity.description += ' - %s' % party.rec_name
-            to_create.append(opportunity._save_values)
+            opportunities = self._get_opportunities(campaign, party)
+            if opportunities:
+                to_create.extend(opportunities)
 
         leads = Opportunity.create(to_create)
 
