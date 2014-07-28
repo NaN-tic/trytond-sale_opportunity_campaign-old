@@ -12,6 +12,10 @@ contains the full copyright notices and license terms. -->
         <page name="description">
 	        <field name="description" colspan="4"/>
         </page>
+        <page name="parties">
+	        <field name="parties" colspan="4"/>
+	        <button name="create_leads" string="Create Leads"/>
+        </page>
         <page name="products">
 	        <field name="products" colspan="4"/>
         </page>

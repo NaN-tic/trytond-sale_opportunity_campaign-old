@@ -2,10 +2,12 @@
 # copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool, PoolMeta
+from trytond.pyson import Bool, Eval
 from trytond.transaction import Transaction
-from trytond.wizard import Wizard, StateAction, StateView, Button
+from trytond.wizard import Wizard, StateTransition, StateAction, StateView,\
+    Button
 
-__all__ = ['Opportunity', 'Campaign', 'ProductCampaign', 'Campaign',
+__all__ = ['Opportunity', 'Campaign', 'ProductCampaign', 'PartyCampaign',
     'CreateCampaignStart', 'CreateCampaign']
 __metaclass__ = PoolMeta
 
@@ -20,6 +22,27 @@ class ProductCampaign(ModelSQL):
         required=True, select=True, ondelete='CASCADE')
 
 
+class PartyCampaign(ModelSQL):
+    'Campaign - Party'
+    __name__ = 'sale.opportunity.campaign-party.party'
+
+    campaing = fields.Many2One('sale.opportunity.campaign', 'Campaign',
+        required=True, select=True, ondelete='CASCADE')
+    party = fields.Many2One('party.party', 'Party', required=True,
+        select=True, ondelete='CASCADE')
+
+    def _get_opportunities(self):
+        '''
+        Returns a list with the values of the opportunities to create
+        related to the campaing and the party
+        '''
+        opportunity = self.campaing.get_lead()
+        opportunity.party = self.party
+        opportunity.description += ' - %s' % self.party.rec_name
+        opportunity._save_values
+        return [opportunity._save_values]
+
+
 class Campaign(ModelSQL, ModelView):
     'Campaign'
     __name__ = 'sale.opportunity.campaign'
@@ -29,8 +52,49 @@ class Campaign(ModelSQL, ModelView):
     end_date = fields.Date('End Date')
     products = fields.Many2Many('sale.opportunity.campaign-product.product',
         'campaing', 'product', 'Products')
+    parties = fields.Many2Many('sale.opportunity.campaign-party.party',
+        'campaing', 'party', 'Parties')
 
-    def create_lead(self):
+    @classmethod
+    def __setup__(cls):
+        super(Campaign, cls).__setup__()
+        cls._buttons.update({
+                'create_leads': {
+                    'invisible': ~Bool(Eval('parties', [])),
+                    'icon': 'tryton-ok',
+                    },
+                })
+
+    @classmethod
+    @ModelView.button
+    def create_leads(cls, campaigns):
+        pool = Pool()
+        Opportunity = pool.get('sale.opportunity')
+        CampaignParty = pool.get('sale.opportunity.campaign-party.party')
+        existing = set()
+        for opportunity in Opportunity.search([
+                    ('campaign', 'in', campaigns),
+                    ('party', '!=', None),
+                    ]):
+            existing.add((opportunity.campaign.id, opportunity.party.id))
+
+        campaign_party = set()
+        for campaign in campaigns:
+            for party in campaign.parties:
+                campaign_party.add((campaign.id, party.id))
+
+        to_create = []
+        for campaign, party in campaign_party - existing:
+            campaign_party, = CampaignParty.search([
+                    ('campaing', '=', campaign),
+                    ('party', '=', party),
+                    ])
+            opportunities = campaign_party._get_opportunities()
+            if opportunities:
+                to_create.extend(opportunities)
+        Opportunity.create(to_create)
+
+    def get_lead(self):
         'Returns the correspoding lead for this campaing'
         pool = Pool()
         Opportunity = pool.get('sale.opportunity')
@@ -52,6 +116,8 @@ class CreateCampaignStart(ModelView):
     __name__ = 'sale.opportunity.create_campaign.start'
 
     campaign = fields.Many2One('sale.opportunity.campaign', 'Campaign')
+    create_leads = fields.Boolean('Create Leads', help='If marked a lead will '
+        'be created for each party and related to the party')
 
 
 class CreateCampaign(Wizard):
@@ -61,38 +127,47 @@ class CreateCampaign(Wizard):
     start = StateView('sale.opportunity.create_campaign.start',
         'sale_opportunity_campaign.create_campaign_start_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Create', 'leads', 'tryton-ok', True),
+            Button('Create', 'create_', 'tryton-ok', True),
             ])
+    create_ = StateTransition()
     leads = StateAction('sale_opportunity.act_opportunity_form')
 
-    def _get_opportunities(self, campaign, party):
-        '''
-        Returns a list with the values of the opportunities to create
-        related to the campaing and the party
-        '''
-        opportunity = campaign.create_lead()
-        opportunity.party = party
-        opportunity.description += ' - %s' % party.rec_name
-        opportunity._save_values
-        return [opportunity._save_values]
-
+    def transition_create_(self):
+        pool = Pool()
+        Campaing = pool.get('sale.opportunity.campaign')
+        parties = set(Transaction().context.get('active_ids'))
+        campaign = self.start.campaign
+        existing = set([p.id for p in campaign.parties])
+        to_add = parties - existing
+        if to_add:
+            Campaing.write([campaign], {
+                    'parties': [('add', list(to_add))]
+                    })
+        if self.start.create_leads:
+            return 'leads'
+        return 'end'
 
     def do_leads(self, action):
         pool = Pool()
-        Party = pool.get('party.party')
+        Campaing = pool.get('sale.opportunity.campaign')
         Opportunity = pool.get('sale.opportunity')
-        parties = Party.browse(Transaction().context.get('active_ids'))
-        campaign = self.start.campaign
-        to_create = []
-        for party in parties:
-            opportunities = self._get_opportunities(campaign, party)
-            if opportunities:
-                to_create.extend(opportunities)
 
-        leads = Opportunity.create(to_create)
-
+        existing = set()
+        for opportunity in Opportunity.search([
+                    ('campaign', '=', self.start.campaign),
+                    ('party', '!=', None),
+                    ]):
+            existing.add(opportunity.id)
+        Campaing.create_leads([self.start.campaign])
+        new = set()
+        for opportunity in Opportunity.search([
+                    ('campaign', '=', self.start.campaign),
+                    ('party', '!=', None),
+                    ]):
+            new.add(opportunity.id)
+        leads = new - existing
         data = {
-            'res_id': [l.id for l in leads],
+            'res_id': list(leads),
             }
         if len(leads) == 1:
             action['views'].reverse()

@@ -8,6 +8,7 @@ def register():
     Pool.register(
         Campaign,
         ProductCampaign,
+        PartyCampaign,
         Opportunity,
         CreateCampaignStart,
         module='sale_opportunity_campaign', type_='model')
