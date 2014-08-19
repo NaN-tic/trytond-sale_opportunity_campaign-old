@@ -6,6 +6,10 @@ msgctxt "field:sale.opportunity,campaign:"
 msgid "Campaign"
 msgstr "Campaña"
 
+msgctxt "field:sale.opportunity.campaign,childs:"
+msgid "Children"
+msgstr "Hijas"
+
 msgctxt "field:sale.opportunity.campaign,create_date:"
 msgid "Create Date"
 msgstr "Fecha de creación"
@@ -30,6 +34,10 @@ msgctxt "field:sale.opportunity.campaign,name:"
 msgid "Name"
 msgstr "Nombre"
 
+msgctxt "field:sale.opportunity.campaign,parent:"
+msgid "Parent"
+msgstr "Padre"
+
 msgctxt "field:sale.opportunity.campaign,parties:"
 msgid "Parties"
 msgstr "Terceros"
@@ -51,6 +59,38 @@ msgid "Write Date"
 msgstr "Fecha modificación"
 
 msgctxt "field:sale.opportunity.campaign,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:sale.opportunity.campaign-party.party,campaing:"
+msgid "Campaign"
+msgstr "Campaña"
+
+msgctxt "field:sale.opportunity.campaign-party.party,create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
+
+msgctxt "field:sale.opportunity.campaign-party.party,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:sale.opportunity.campaign-party.party,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "field:sale.opportunity.campaign-party.party,party:"
+msgid "Party"
+msgstr "Terceros"
+
+msgctxt "field:sale.opportunity.campaign-party.party,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:sale.opportunity.campaign-party.party,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:sale.opportunity.campaign-party.party,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
 
@@ -90,25 +130,44 @@ msgctxt "field:sale.opportunity.create_campaign.start,campaign:"
 msgid "Campaign"
 msgstr "Campaña"
 
+msgctxt "field:sale.opportunity.create_campaign.start,create_leads:"
+msgid "Create Leads"
+msgstr "Crear iniciativas"
+
 msgctxt "field:sale.opportunity.create_campaign.start,id:"
 msgid "ID"
 msgstr "Identificador"
 
-msgctxt "model:ir.action,name:act_leads_form"
-msgid "Leads and Opportunities"
-msgstr "Iniciativas y oportunidades"
+msgctxt "help:sale.opportunity.create_campaign.start,create_leads:"
+msgid ""
+"If marked a lead will be created for each party and related to the party"
+msgstr ""
+"Si se marca se creará una iniciativa por cada tercero y se relacionará con "
+"éste."
 
-msgctxt "model:ir.action,name:act_sale_opportunity_campaign"
-msgid "Sale Opportunity Campaign"
-msgstr "Campaña de oportunidades"
+msgctxt "model:ir.action,name:act_opportunities_by_category"
+msgid "Leads and Opportunities by Campaign"
+msgstr "Iniciativas y oportunidades por campaña"
+
+msgctxt "model:ir.action,name:act_opportunity_campaign_list"
+msgid "Campaigns"
+msgstr "Campañas"
+
+msgctxt "model:ir.action,name:act_opportunity_campaign_tree"
+msgid "Campaigns"
+msgstr "Campañas"
 
 msgctxt "model:ir.action,name:wizard_create_campaign"
 msgid "Create Campaign"
 msgstr "Crear campaña"
 
-msgctxt "model:ir.ui.menu,name:menu_sale_opportunity_campaign"
-msgid "Opportunity Campaign"
-msgstr "Campaña de oportunidades"
+msgctxt "model:ir.ui.menu,name:menu_opportunity_campaign_list"
+msgid "Campaigns"
+msgstr "Campañas"
+
+msgctxt "model:ir.ui.menu,name:menu_opportunity_campaign_tree"
+msgid "Campaigns"
+msgstr "Campañas"
 
 msgctxt "model:sale.opportunity.campaign,name:"
 msgid "Campaign"
@@ -135,12 +194,20 @@ msgid "Campaigns"
 msgstr "Campañas"
 
 msgctxt "view:sale.opportunity.campaign:"
+msgid "Children"
+msgstr "Hijas"
+
+msgctxt "view:sale.opportunity.campaign:"
 msgid "Create Leads"
 msgstr "Crear iniciativas"
 
 msgctxt "view:sale.opportunity.create_campaign.start:"
 msgid "Create Campaign"
 msgstr "Crear campaña"
+
+msgctxt "wizard_button:sale.opportunity.create_campaign,start,create_:"
+msgid "Create"
+msgstr "Crear"
 
 msgctxt "wizard_button:sale.opportunity.create_campaign,start,end:"
 msgid "Cancel"

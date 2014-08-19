@@ -3,7 +3,10 @@
 contains the full copyright notices and license terms. -->
 <form string="Campaign">
 	<label name="name"/>
-	<field name="name" colspan="3"/>
+    <field name="name" colspan="3"/>
+    <label name="parent"/>
+    <field name="parent"/>
+    <newline/>
 	<label name="start_date"/>
 	<field name="start_date"/>
 	<label name="end_date"/>
@@ -18,6 +21,9 @@ contains the full copyright notices and license terms. -->
         </page>
         <page name="products">
 	        <field name="products" colspan="4"/>
+        </page>
+        <page string="Children" col="1" id="childs">
+            <field name="childs"/>
         </page>
     </notebook>
 </form>

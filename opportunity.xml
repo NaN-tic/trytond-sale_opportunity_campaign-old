@@ -4,36 +4,88 @@
 <tryton>
     <data>
         <!-- sale.opportunity.campaign -->
-        <record model="ir.ui.view" id="sale_opportunity_campaign_form_view">
+        <record model="ir.ui.view" id="opportunity_campaign_form_view">
             <field name="model">sale.opportunity.campaign</field>
             <field name="type">form</field>
             <field name="name">sale_opportunity_campaign_form</field>
         </record>
 
-        <record model="ir.ui.view" id="sale_opportunity_campaign_tree_view">
+        <record model="ir.ui.view" id="opportunity_campaign_list_view">
             <field name="model">sale.opportunity.campaign</field>
             <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">sale_opportunity_campaign_list</field>
+        </record>
+
+        <record model="ir.ui.view" id="opportunity_campaign_tree_view">
+            <field name="model">sale.opportunity.campaign</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="field_childs">childs</field>
             <field name="name">sale_opportunity_campaign_tree</field>
         </record>
 
-        <record model="ir.action.act_window" id="act_sale_opportunity_campaign">
+        <record model="ir.action.act_window"
+                id="act_opportunity_campaign_tree">
+            <field name="name">Campaigns</field>
+            <field name="res_model">sale.opportunity.campaign</field>
+            <field name="domain">[('parent', '=', None)]</field>
+            <field name="search_value"></field>
+        </record>
+        <record model="ir.action.act_window.view"
+                id="act_opportunity_campaign_tree_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="opportunity_campaign_tree_view"/>
+            <field name="act_window" ref="act_opportunity_campaign_tree"/>
+        </record>
+        <record model="ir.action.act_window.view"
+                id="act_opportunity_campaign_tree_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="opportunity_campaign_form_view"/>
+            <field name="act_window" ref="act_opportunity_campaign_tree"/>
+        </record>
+
+        <record model="ir.action.act_window"
+                id="act_opportunity_campaign_list">
             <field name="name">Campaigns</field>
             <field name="res_model">sale.opportunity.campaign</field>
             <field name="search_value"></field>
         </record>
-        <record model="ir.action.act_window.view" id="act_sale_opportunity_campaign_view1">
+        <record model="ir.action.act_window.view"
+                id="act_opportunity_campaign_list_view1">
             <field name="sequence" eval="10"/>
-            <field name="view" ref="sale_opportunity_campaign_tree_view"/>
-            <field name="act_window" ref="act_sale_opportunity_campaign"/>
+            <field name="view" ref="opportunity_campaign_list_view"/>
+            <field name="act_window" ref="act_opportunity_campaign_list"/>
         </record>
-        <record model="ir.action.act_window.view" id="act_sale_opportunity_campaign_view2">
+        <record model="ir.action.act_window.view"
+                id="act_opportunity_campaign_list_view2">
             <field name="sequence" eval="20"/>
-            <field name="view" ref="sale_opportunity_campaign_form_view"/>
-            <field name="act_window" ref="act_sale_opportunity_campaign"/>
+            <field name="view" ref="opportunity_campaign_form_view"/>
+            <field name="act_window" ref="act_opportunity_campaign_list"/>
         </record>
 
-        <record model="ir.model.access" id="access_sale_opportunity_campaign">
-            <field name="model" search="[('model', '=', 'sale.opportunity.campaign')]"/>
+        <record model="ir.action.act_window"
+                id="act_opportunities_by_category">
+            <field name="name">Leads and Opportunities by Campaign</field>
+            <field name="res_model">sale.opportunity</field>
+            <field name="domain">[('campaign', 'child_of', Eval('active_ids'), 'parent')]</field>
+        </record>
+        <record model="ir.action.keyword"
+                id="act_opportunities_by_category_tree_keyword1">
+            <field name="keyword">tree_open</field>
+            <field name="model">sale.opportunity.campaign,-1</field>
+            <field name="action" ref="act_opportunities_by_category"/>
+        </record>
+        <record model="ir.action.keyword"
+                id="act_opportunities_by_category_list_keyword1">
+            <field name="keyword">form_relate</field>
+            <field name="model">sale.opportunity.campaign,-1</field>
+            <field name="action" ref="act_opportunities_by_category"/>
+        </record>
+
+        <record model="ir.model.access" id="access_opportunity_campaign">
+            <field name="model"
+                search="[('model', '=', 'sale.opportunity.campaign')]"/>
             <field name="group" ref="sale_opportunity.group_opportunity"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -47,12 +99,14 @@
             <field name="inherit" ref="sale_opportunity.opportunity_view_form"/>
             <field name="name">sale_opportunity_form</field>
         </record>
+
         <record model="ir.ui.view" id="sale_opportunity_tree_view">
             <field name="model">sale.opportunity</field>
             <field name="inherit" ref="sale_opportunity.opportunity_view_tree"/>
             <field name="name">sale_opportunity_tree</field>
         </record>
 
+        <!-- sale.opportunity.create_campaign -->
         <record model="ir.ui.view" id="create_campaign_start_view_form">
             <field name="model">sale.opportunity.create_campaign.start</field>
             <field name="type">form</field>
@@ -75,21 +129,11 @@
         </record>
 
         <!-- Menus -->
-        <menuitem action="act_sale_opportunity_campaign"
-                id="menu_sale_opportunity_campaign"
-                parent="sale.menu_configuration"
-                sequence="1"
-                name="Opportunity Campaign"/>
-
-        <record model="ir.action.act_window" id="act_leads_form">
-            <field name="name">Leads and Opportunities</field>
-            <field name="res_model">sale.opportunity</field>
-            <field name="domain">[('campaign', 'in', Eval('active_ids'))]</field>
-        </record>
-        <record model="ir.action.keyword" id="act_leads_form_keyword1">
-            <field name="keyword">form_relate</field>
-            <field name="model">sale.opportunity.campaign,-1</field>
-            <field name="action" ref="act_leads_form"/>
-        </record>
+        <menuitem id="menu_opportunity_campaign_tree"
+            action="act_opportunity_campaign_tree"
+            parent="sale.menu_configuration" sequence="1"/>
+        <menuitem id="menu_opportunity_campaign_list"
+            action="act_opportunity_campaign_list"
+            parent="menu_opportunity_campaign_tree" sequence="1"/>
     </data>
 </tryton>

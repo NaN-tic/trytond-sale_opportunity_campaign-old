@@ -1,10 +1,8 @@
 <?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<tree string="Campaigns" keyword_open="1">
-    <field name="name"/>
+<tree string="Campaigns">
+    <field name="rec_name"/>
     <field name="start_date"/>
     <field name="end_date"/>
-    <field name="parent" tree_invisible="1"/>
-    <field name="childs" tree_invisible="1"/>
 </tree>
