@@ -58,6 +58,10 @@ class Campaign(ModelSQL, ModelView):
         'campaing', 'product', 'Products')
     parties = fields.Many2Many('sale.opportunity.campaign-party.party',
         'campaing', 'party', 'Parties')
+    category = fields.Many2One('sale.opportunity.category',
+        'Category')
+
+
 
     @classmethod
     def __setup__(cls):
@@ -127,6 +131,7 @@ class Campaign(ModelSQL, ModelView):
         opportunity.campaign = self.id
         opportunity.description = self.rec_name
         opportunity.state = 'lead'
+        opportunity.category = self.category.id
         return opportunity
 
 

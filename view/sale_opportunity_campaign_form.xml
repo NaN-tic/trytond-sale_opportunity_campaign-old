@@ -11,6 +11,8 @@ contains the full copyright notices and license terms. -->
 	<field name="start_date"/>
 	<label name="end_date"/>
 	<field name="end_date"/>
+    <label name="category"/>
+    <field name="category"/>
     <notebook>
         <page name="description">
 	        <field name="description" colspan="4"/>
