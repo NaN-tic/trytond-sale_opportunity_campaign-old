@@ -6,6 +6,10 @@ msgctxt "field:sale.opportunity,campaign:"
 msgid "Campaign"
 msgstr "Campaña"
 
+msgctxt "field:sale.opportunity.campaign,category:"
+msgid "Category"
+msgstr "Categoría"
+
 msgctxt "field:sale.opportunity.campaign,childs:"
 msgid "Children"
 msgstr "Hijas"
