@@ -29,7 +29,9 @@
                 id="act_opportunity_campaign_tree">
             <field name="name">Campaigns</field>
             <field name="res_model">sale.opportunity.campaign</field>
-            <field name="domain">[('parent', '=', None)]</field>
+            <field name="domain"
+                eval="[('parent', '=', None)]"
+                pyson="1"/>
             <field name="search_value"></field>
         </record>
         <record model="ir.action.act_window.view"
@@ -68,7 +70,9 @@
                 id="act_opportunities_by_category">
             <field name="name">Leads and Opportunities by Campaign</field>
             <field name="res_model">sale.opportunity</field>
-            <field name="domain">[('campaign', 'child_of', Eval('active_ids'), 'parent')]</field>
+            <field name="domain"
+                eval="[('campaign', 'child_of', Eval('active_ids'), 'parent')]"
+                pyson="1"/>
         </record>
         <record model="ir.action.keyword"
                 id="act_opportunities_by_category_tree_keyword1">
